@@ -18,8 +18,13 @@ func (fx FixtureLoader) getDataFromYAML(file string) (Data, error) {
 
 	rows := make([]map[string]string, 0)
 	for _, d := range yamlData.([]interface{}) {
-		row := interfaceInterfaceToMapString(d.(map[interface{}]interface{}))
-		rows = append(rows, row)
+		for key, value := range d.(map[interface{}]interface{}) {
+			if key == "data" {
+				row := interfaceInterfaceToMapString(value.(map[interface{}]interface{}))
+				rows = append(rows, row)
+			}
+		}
+
 	}
 
 	if len(rows) < 1 {
